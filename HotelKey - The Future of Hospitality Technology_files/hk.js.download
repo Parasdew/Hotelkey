@@ -1,0 +1,141 @@
+
+
+$(document).ready(function () {
+  $(".se-pre-con").fadeOut(3000);
+
+  var hash = window.location.hash;
+  // if a hash is present (when you come to this page)
+  if (hash != '') {
+    // show the tab
+    $('.nav-tabs a[href="' + hash + '"]').tab('show');
+  }
+  $('#demo').carousel({
+    interval: 3000
+  });
+
+  // breakpoint and up  
+  $(window).resize(function () {
+    if ($(window).width() >= 980) {
+
+      // when you hover a toggle show its dropdown menu
+      $(".navbar .dropdown-toggle").hover(function () {
+        $(this).parent().toggleClass("show");
+        $(this).parent().find(".dropdown-menu").toggleClass("show");
+      });
+
+      // hide the menu when the mouse leaves the dropdown
+      $(".navbar .dropdown-menu").mouseleave(function () {
+        $(this).removeClass("show");
+      });
+
+      // do something here
+    }
+  });
+
+
+  //for offset nav
+
+
+  // for slide
+  var $animation_elements = $('.animation-element');
+  var $window = $(window);
+
+  function check_if_in_view() {
+    var window_height = $window.height();
+    var window_top_position = $window.scrollTop();
+    var window_bottom_position = (window_top_position + window_height);
+
+    $.each($animation_elements, function () {
+      var $element = $(this);
+      var element_height = $element.outerHeight();
+      var element_top_position = $element.offset().top;
+      var element_bottom_position = (element_top_position + element_height);
+
+      //check to see if this current container is within viewport
+      if ((element_bottom_position >= window_top_position) &&
+        (element_top_position <= window_bottom_position)) {
+        $element.addClass('in-view');
+      } else {
+        $element.removeClass('in-view');
+      }
+    });
+  }
+
+  $window.on('scroll resize', check_if_in_view);
+  $window.trigger('scroll', check_if_in_view);
+});
+
+
+
+
+
+$(document).ready(function () {
+  // var $scroller = $('.list');
+  //  alert("test")
+  // fade up
+  $('.nav-item.dropdown').click(function () {
+    //  debugger
+    $(this).find(".dropdown-menu.hk-dropdown-border").toggleClass('show-items')
+  })
+  $('.hkicon-hklogo').click(function () {
+    window.location.href = '../../index.html';
+  })
+  $(".mob-hk-navtabs").click(function () {
+    closeNav()
+  })
+  $(".scroll-top").click(function (event) {
+    event.preventDefault();
+    $("html, body").animate({ scrollTop: $($(this).attr("href")).offset().top }, 1000);
+  });
+
+  //  $('.dropdown-menu > a').click(function(){
+  //   //  alert("Test")
+
+  //    var scrollTo = $('#nav-hkhome')
+  //         .css('background', '#9f3') 
+  //         .position().left; 
+  //     // simply update the scroll of the scroller
+  //     // $('.scroller').scrollLeft(scrollTo); 
+  //     // use an animation to scroll to the destination
+  //     $scroller
+  //       .animate({'scrollLeft': scrollTo}, 500);
+  //  });
+})
+
+
+
+
+
+
+function openNav() {
+  document.getElementById("mySidenav").style.width = "250px";
+}
+
+function closeNav() {
+  document.getElementById("mySidenav").style.width = "0";
+}
+
+
+
+
+// assign click handler
+// $('.hk-a').on('click', function () { 
+function tabSelect(tabId) {
+  var $scroller = $('.tab-sel');
+  // get the partial id of the div to scroll to
+  var divIdx = tabId//$('a').val();          
+
+  // retrieve the jquery ref to the div
+  var scrollTo = $('#d' + divIdx)
+    // change its bg
+    .css('background', '#')
+    // retrieve its position relative to its parent
+    .position().left;
+  console.log(scrollTo);
+  // simply update the scroll of the scroller
+  // $('.scroller').scrollLeft(scrollTo); 
+  // use an animation to scroll to the destination
+  $scroller
+    .animate({ 'scrollLeft': scrollTo }, 500);
+}
+// });
